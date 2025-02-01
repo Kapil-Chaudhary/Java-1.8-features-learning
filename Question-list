@@ -1,0 +1,40 @@
+
+1. how to replace all the white spaces in the string ?
+   String s = "K a  pil ".chars().filter(c -> !Character.isWhitespace(c)).mapToObj(c -> String.valueOf((char) c)).collect(Collectors.joining());
+
+
+2. we have an array, so we want to sort the array and extract all the elements that are present at even index
+    and collect them into another array ?
+    input  : [5,4,1,2,3]
+    output : [1,3,5]
+
+    List<Integer> list = IntStream.range(0, arr.length).filter(i -> i % 2 == 0).map(i -> arr[i]).sorted().mapToObj(i -> Integer.valueOf(i)).collect(Collectors.toList());
+
+3. find the second largest number of an array using java 8
+        Integer val1 = Arrays.stream(arr).boxed().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElseThrow(() -> new IllegalArgumentException("Array must have at least two distinct numbers"));
+        System.out.println(val1);
+
+
+4. find the second largest salary of an employee from an List of employee and return this employee as map
+    where key is name and value as salary using java 8
+
+    Map<String, Integer> map = employees.stream().map(emp -> emp.getSalary()).distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst()
+            .map(empSal -> employees.stream().filter(emp -> emp.getSalary() == empSal).collect(Collectors.toMap(Employee::getName, Employee::getSalary)))
+            .orElse(Collections.emptyMap());
+    System.out.println(map);
+
+
+5. convert list of employees into map where key is name and value is object
+        Map<String, Employee> collect = employees.stream().collect(Collectors.toMap(Employee::getName, employee -> employee));
+        System.out.println(collect);
+
+
+
+
+
+
+
+
+.
+flatMap(): It is used where we have to transform or flatten the string, as we can't flatten our string using map().
+Example: Get the first Character of all the String present in a List of Strings and return the result in form of a stream.
